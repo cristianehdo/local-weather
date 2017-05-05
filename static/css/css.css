@@ -1,0 +1,29 @@
+#header {
+margin: 0 auto;
+height: 50px;	
+}
+#meteo {
+	margin: 0 auto;
+	width: 500px;
+	height: 700px;
+	background-color: #EEE;
+}
+#city{
+	margin: 0 auto;
+	text-align: center;
+	width: 500px;
+	height: 100px;
+	padding-top: 20px;
+	
+}
+.firstinfo {
+text-align: center;
+}
+#icon {
+	width: 120px; 
+	height: 120px;
+}
+.details{
+		margin: 0 auto;
+	text-align: center;
+}
