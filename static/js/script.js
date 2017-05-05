@@ -17,17 +17,18 @@ if (navigator.geolocation) {
         var weather = json.weather[0].description;
         var humidity = json.main.humidity;
 		$("#weather").html(weather);      
-		$("#humidity").html(humidity+"%"); 
+		$("#humidity").html("humidity: "+humidity+"%"); 
     });
 
   });
+	$.get("http://ipinfo.io", function(response) {
+	var city = response.city;
+	var country= response.country;
+    $("#city").html(city);
+}, "jsonp");
 
 
 }
 
 
    
-
-
-// server = api.openweathermap.org
-// http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID={49a7669d694c5f864e8b938ba081ee61}
