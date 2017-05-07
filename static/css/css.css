@@ -1,20 +1,31 @@
-#header {
-margin: 0 auto;
-height: 50px;	
-}
+/*#body{
+	background-image: : no-repeat;
+}*/
+
+
 #meteo {
 	margin: 0 auto;
 	width: 500px;
 	height: 700px;
-	background-color: #EEE;
+	background-color: #FFF;
+	opacity: 0.3;
+    filter: alpha(opacity=30);
 }
+
+#header {
+margin: 0 auto;
+height: 100px;	
+padding-top: 50px;
+text-align: center;
+}
+
 #city{
 	margin: 0 auto;
 	text-align: center;
 	width: 500px;
 	height: 100px;
 	padding-top: 20px;
-	
+
 }
 .firstinfo {
 text-align: center;
