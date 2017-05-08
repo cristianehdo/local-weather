@@ -20,7 +20,7 @@ if (navigator.geolocation) {
         var temp = json.main.temp;
 		$("#weather").html(weather);      
 		$("#humidity").html("humidity: "+humidity+"%"); 
-		$("#temp").html(temp + "C");
+		$("#temp").html(temp);
 
 		var iconStatus = { 
 			"clear sky": "SUN",
