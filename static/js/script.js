@@ -1,23 +1,25 @@
 
 
+
 APPID = "49a7669d694c5f864e8b938ba081ee61";
+LATITUDE = "";
+LONGITUDE = "";
 
-if (navigator.geolocation) {
+$(document).ready(function(){ 
 
-	var currentPosition;	
-	navigator.geolocation.getCurrentPosition(function(position) {
-    var currentPosition = position;
-    var latitude = position.coords.longitude;
-    var longitude = position.coords.latitude;
-    $("#coords").html("latitude: " + latitude + "<br>longitude: " + longitude);
-    var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&APPID="+APPID;
+	$.get("http://ipinfo.io", function(response) {
+		var city = response.city;
+		var country= response.country;
+	    $("#cityname").html(city);
+	}, "jsonp");
 
-    $.getJSON(url, function (data) {
-        var rawJson = JSON.stringify(data);
-        var json = JSON.parse(rawJson);
-        var weather = json.weather[0].description;
-        var humidity = json.main.humidity;
-        var temp = json.main.temp;
+
+	function updateData (data) {
+	    var rawJson = JSON.stringify(data);
+	    var json = JSON.parse(rawJson);
+	    var weather = json.weather[0].description;
+	    var humidity = json.main.humidity;
+	    var temp = json.main.temp;
 		$("#weather").html(weather);      
 		$("#humidity").html("humidity: "+humidity+"%"); 
 		$("#temp").html(temp);
@@ -36,20 +38,35 @@ if (navigator.geolocation) {
 		}
 		var iconweather = iconStatus[weather];
 		var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.NIGHT, stroke:true, shadow:true, animated:true } );
-    	$("#icon").add(icon);
+		$("#icon").add(icon);
+	}
 
-    });
+	$("#degrees").on("click", function(){
+		if ($("#degrees").text() == "C"){
+			getData("imperial");
+			$("#degrees").text("F");
+		} else {
+			getData("metric");
+			$("#degrees").text("C");	
+		}
+	});
 
-  });
-	$.get("http://ipinfo.io", function(response) {
-	var city = response.city;
-	var country= response.country;
-    $("#cityname").html(city);
-}, "jsonp");
+	function getData(units) {
+		var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + LATITUDE + "&lon=" + LONGITUDE + "&units=" + units + "&APPID=" + APPID;
+	    $.getJSON(url, updateData);
+	}
 
+	if (navigator.geolocation) {
 
+		var currentPosition;	
+		navigator.geolocation.getCurrentPosition(function(position) {
+		    var currentPosition = position;
+		    LATITUDE = position.coords.longitude;
+		    LONGITUDE = position.coords.latitude;
+		    getData("metric");
+		    $("#degrees").text("C");    
 
-}
+		});
+	}
 
-
-   
+});
