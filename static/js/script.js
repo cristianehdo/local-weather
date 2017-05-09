@@ -4,26 +4,32 @@
 APPID = "49a7669d694c5f864e8b938ba081ee61";
 LATITUDE = "";
 LONGITUDE = "";
+CITY = "";
+
 
 $(document).ready(function(){ 
 
 	$.get("http://ipinfo.io", function(response) {
-		var city = response.city;
-		var country= response.country;
-	    $("#cityname").text(city);
+		CITY = response.city;
+	    $("#cityname").text(CITY);
 	}, "jsonp");
 
 
-	function updateData (data) {
-	    var rawJson = JSON.stringify(data);
-	    var json = JSON.parse(rawJson);
+	function updateData (json) {
+	    // var rawJson = JSON.stringify(data);
+	    // var json = JSON.parse(rawJson);
 	    var weather = json.weather[0].description;
 	    var humidity = json.main.humidity;
 	    var temp = json.main.temp;
-		$("#weather").text(weather);      
-		$("#humidity").text("humidity: "+humidity+"%"); 
+	    var city = json.name;
+	   	$("#weather").text(weather);      
+		$("#humidity").text(humidity); 
 		$("#temp").text(temp);
 		$("#degrees").text(mesure);
+
+		var date = new Date();
+		var time = date.getHours()+"H"+date.getMinutes();
+		$("#time").text(time);
 
 		var iconStatus = { 
 			"clear sky": "SUN",
@@ -39,8 +45,8 @@ $(document).ready(function(){
 		}
 	
 			var iconweather = iconStatus[weather];
-			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.NIGHT, stroke:true, shadow:true, animated:true } );
-			$("#icon").html("");
+			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.time, stroke:true, shadow:true, animated:true } );
+			// $("#icon").html("");
 			$("#icon").html(icon);
 	}
 
@@ -55,8 +61,9 @@ $(document).ready(function(){
 		}
 	});
 
+
 	function getData(units) {
-		var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + LATITUDE + "&lon=" + LONGITUDE + "&units=" + units + "&APPID=" + APPID;
+		var url = "http://api.openweathermap.org/data/2.5/weather?q="+ CITY + "&units=" + units + "&APPID=" + APPID;
 	    $.getJSON(url, updateData);
 	}
 
