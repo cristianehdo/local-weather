@@ -29,6 +29,18 @@ $(document).ready(function(){
 
 		var date = new Date();
 		var time = date.getHours()+"H"+date.getMinutes();
+		var utcDay = date.getUTCDay();
+		var week = {
+			0 : "Sunday",
+			1 : "Monday",
+			2 : "Tusday",
+			3 : "Wednesday",
+			4 : "Thrisday",
+			5 : "Friday",
+			6 : "Saturday"
+		}
+		var weekday = week[utcDay];
+		$("#weekday").text(weekday);
 		$("#time").text(time);
 
 		var iconStatus = { 
@@ -43,7 +55,6 @@ $(document).ready(function(){
 			"snow": "SNOW",
 			"mist": "FOG"
 		}
-	
 			var iconweather = iconStatus[weather];
 			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.time, stroke:true, shadow:true, animated:true } );
 			// $("#icon").html("");
@@ -61,14 +72,12 @@ $(document).ready(function(){
 		}
 	});
 
-
 	function getData(units) {
 		var url = "http://api.openweathermap.org/data/2.5/weather?q="+ CITY + "&units=" + units + "&APPID=" + APPID;
 	    $.getJSON(url, updateData);
 	}
 
 	if (navigator.geolocation) {
-
 		var currentPosition;	
 		navigator.geolocation.getCurrentPosition(function(position) {
 		    var currentPosition = position;
@@ -76,7 +85,6 @@ $(document).ready(function(){
 		    LONGITUDE = position.coords.latitude;
 		    getData("metric");
 		    mesure = "C°";    
-
 		});
 	}
 
