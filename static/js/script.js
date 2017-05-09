@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$.get("http://ipinfo.io", function(response) {
 		var city = response.city;
 		var country= response.country;
-	    $("#cityname").html(city);
+	    $("#cityname").text(city);
 	}, "jsonp");
 
 
@@ -20,9 +20,10 @@ $(document).ready(function(){
 	    var weather = json.weather[0].description;
 	    var humidity = json.main.humidity;
 	    var temp = json.main.temp;
-		$("#weather").html(weather);      
-		$("#humidity").html("humidity: "+humidity+"%"); 
-		$("#temp").html(temp);
+		$("#weather").text(weather);      
+		$("#humidity").text("humidity: "+humidity+"%"); 
+		$("#temp").text(temp);
+		$("#degrees").text(mesure);
 
 		var iconStatus = { 
 			"clear sky": "SUN",
@@ -36,18 +37,21 @@ $(document).ready(function(){
 			"snow": "SNOW",
 			"mist": "FOG"
 		}
-		var iconweather = iconStatus[weather];
-		var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.NIGHT, stroke:true, shadow:true, animated:true } );
-		$("#icon").add(icon);
+	
+			var iconweather = iconStatus[weather];
+			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.NIGHT, stroke:true, shadow:true, animated:true } );
+			$("#icon").html("");
+			$("#icon").html(icon);
 	}
 
+
 	$("#degrees").on("click", function(){
-		if ($("#degrees").text() == "C"){
+		if ($("#degrees").text() == "C°"){
 			getData("imperial");
-			$("#degrees").text("F");
+			mesure ="F°";
 		} else {
 			getData("metric");
-			$("#degrees").text("C");	
+			mesure = "C°";	
 		}
 	});
 
@@ -64,7 +68,7 @@ $(document).ready(function(){
 		    LATITUDE = position.coords.longitude;
 		    LONGITUDE = position.coords.latitude;
 		    getData("metric");
-		    $("#degrees").text("C");    
+		    mesure = "C°";    
 
 		});
 	}
