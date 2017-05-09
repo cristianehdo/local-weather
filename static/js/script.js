@@ -21,6 +21,7 @@ $(document).ready(function(){
 	    var weather = json.weather[0].description;
 	    var humidity = json.main.humidity;
 	    var temp = json.main.temp;
+	    temp = Math.round(temp);
 	    var city = json.name;
 	   	$("#weather").text(weather);      
 		$("#humidity").text(humidity); 
@@ -28,7 +29,7 @@ $(document).ready(function(){
 		$("#degrees").text(mesure);
 
 		var date = new Date();
-		var time = date.getHours()+"H"+date.getMinutes();
+		var time = date.toLocaleTimeString();
 		var utcDay = date.getUTCDay();
 		var week = {
 			0 : "Sunday",
@@ -57,7 +58,6 @@ $(document).ready(function(){
 		}
 			var iconweather = iconStatus[weather];
 			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.time, stroke:true, shadow:true, animated:true } );
-			// $("#icon").html("");
 			$("#icon").html(icon);
 	}
 
