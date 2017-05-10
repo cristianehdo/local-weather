@@ -1,31 +1,31 @@
 
 
 
-APPID = "49a7669d694c5f864e8b938ba081ee61";
+APPID = "0411538bd3bf7707";
 LATITUDE = "";
 LONGITUDE = "";
 CITY = "";
-
+COUNTRY = "";
 
 $(document).ready(function(){ 
 
 	$.get("http://ipinfo.io", function(response) {
 		CITY = response.city;
+		COUNTRY = response.country;
 	    $("#cityname").text(CITY);
 	}, "jsonp");
 
 
 	function updateData (json) {
-	    // var rawJson = JSON.stringify(data);
-	    // var json = JSON.parse(rawJson);
-	    var weather = json.weather[0].description;
-	    var humidity = json.main.humidity;
-	    var temp = json.main.temp;
+	    var weather = json.current_observation.weather;
+	    var humidity = json.current_observation.relative_humidity;
+	    var temp_c = json.current_observation.temp_c;
+	    var temp_f= json.current_observation.temp_f;
 	    temp = Math.round(temp);
 	    var city = json.name;
 	   	$("#weather").text(weather);      
 		$("#humidity").text(humidity); 
-		$("#temp").text(temp);
+		$("#temp").text(temp_c);
 		$("#degrees").text(mesure);
 
 		var date = new Date();
@@ -45,16 +45,16 @@ $(document).ready(function(){
 		$("#time").text(time);
 
 		var iconStatus = { 
-			"clear sky": "SUN",
-			"few clouds": "LIGHTCLOUD",
-			"scattered clouds": "PARTLYCLOUD",
-			"broken clouds": "PARTLYCLOUD",
-			"light rain":"LIGHTRAIN", 
-			"shower rain": "LIGHTRAINSUN", 
-			"rain": "RAIN",
-			"thunderstorm": "RAINTHUNDER",
-			"snow": "SNOW",
-			"mist": "FOG"
+			"Clear Sky": "SUN",
+			"Few Clouds": "LIGHTCLOUD",
+			"Scattered Clouds": "PARTLYCLOUD",
+			"Broken Clouds": "PARTLYCLOUD",
+			"Light Rain":"LIGHTRAIN", 
+			"Shower Rain": "LIGHTRAINSUN", 
+			"Rain": "RAIN",
+			"Thunderstorm": "RAINTHUNDER",
+			"Snow": "SNOW",
+			"Mist": "FOG"
 		}
 			var iconweather = iconStatus[weather];
 			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.time, stroke:true, shadow:true, animated:true } );
@@ -71,9 +71,10 @@ $(document).ready(function(){
 			mesure = "C°";	
 		}
 	});
+console.log(CITY);
 
 	function getData(units) {
-		var url = "http://api.openweathermap.org/data/2.5/weather?q="+ CITY + "&units=" + units + "&APPID=" + APPID;
+		var url = encodeURI("https://api.wunderground.com/api/" + APPID + "/conditions/q/" + COUNTRY + "/"+ CITY + ".json");
 	    $.getJSON(url, updateData);
 	}
 
