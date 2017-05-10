@@ -3,6 +3,7 @@ body{
 	background-repeat: no-repeat;
 	background-size: 100%;
 	height: 100%; 
+	color: #333;
 }
 
 #meteo {
@@ -50,5 +51,5 @@ text-align: center;
 	color: #EEE;
 }
 .temp:hover { 
-    color: black;
+    color: #333;
 }

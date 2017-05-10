@@ -11,7 +11,7 @@ tempC = "";
 
 $(document).ready(function(){ 
 
-	$.get("http://ipinfo.io", function(response) {
+	$.get("https://ipinfo.io", function(response) {
 		CITY = response.city;
 		COUNTRY = response.country;
 	    $("#cityname").text(CITY);
@@ -48,6 +48,7 @@ $(document).ready(function(){
 		var iconStatus = { 
 			"Clear Sky": "SUN",
 			"Few Clouds": "LIGHTCLOUD",
+			"Partly Cloudy": "PARTLYCLOUD",
 			"Scattered Clouds": "PARTLYCLOUD",
 			"Broken Clouds": "PARTLYCLOUD",
 			"Light Rain":"LIGHTRAIN", 
