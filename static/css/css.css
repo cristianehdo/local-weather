@@ -46,9 +46,9 @@ text-align: center;
 	text-align: center;
 	height: 80px;	
 }
-#degrees {
+.temp {
 	color: #EEE;
 }
-#degrees:hover { 
+.temp:hover { 
     color: black;
 }

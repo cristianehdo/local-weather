@@ -6,6 +6,8 @@ LATITUDE = "";
 LONGITUDE = "";
 CITY = "";
 COUNTRY = "";
+tempF = "";
+tempC = "";
 
 $(document).ready(function(){ 
 
@@ -19,14 +21,13 @@ $(document).ready(function(){
 	function updateData (json) {
 	    var weather = json.current_observation.weather;
 	    var humidity = json.current_observation.relative_humidity;
-	    var temp_c = json.current_observation.temp_c;
-	    var temp_f= json.current_observation.temp_f;
-	    temp = Math.round(temp);
-	    var city = json.name;
+	    var tempC = Math.round(json.current_observation.temp_c);
+	    var tempF = Math.round(json.current_observation.temp_f);
 	   	$("#weather").text(weather);      
 		$("#humidity").text(humidity); 
-		$("#temp").text(temp_c);
-		$("#degrees").text(mesure);
+		$("#tempC").text(tempC);
+		$("#tempF").text(tempF);
+		$(".tempF").hide();
 
 		var date = new Date();
 		var time = date.toLocaleTimeString();
@@ -62,18 +63,13 @@ $(document).ready(function(){
 	}
 
 
-	$("#degrees").on("click", function(){
-		if ($("#degrees").text() == "C°"){
-			getData("imperial");
-			mesure ="F°";
-		} else {
-			getData("metric");
-			mesure = "C°";	
-		}
+	$(".temp").on("click", function(){
+		$(".tempC").toggle();
+		$(".tempF").toggle();
 	});
-console.log(CITY);
 
-	function getData(units) {
+
+	function getData() {
 		var url = encodeURI("https://api.wunderground.com/api/" + APPID + "/conditions/q/" + COUNTRY + "/"+ CITY + ".json");
 	    $.getJSON(url, updateData);
 	}
@@ -84,8 +80,8 @@ console.log(CITY);
 		    var currentPosition = position;
 		    LATITUDE = position.coords.longitude;
 		    LONGITUDE = position.coords.latitude;
-		    getData("metric");
-		    mesure = "C°";    
+		    getData();
+		        
 		});
 	}
 
