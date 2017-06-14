@@ -1,7 +1,5 @@
 
 
-
-APPID = "0411538bd3bf7707";
 LATITUDE = "";
 LONGITUDE = "";
 CITY = "";
@@ -46,17 +44,54 @@ $(document).ready(function(){
 		$("#time").text(time);
 
 		var iconStatus = { 
-			"Clear Sky": "SUN",
+			"Clear": "SUN",
 			"Few Clouds": "LIGHTCLOUD",
 			"Partly Cloudy": "PARTLYCLOUD",
+			"Mostly Cloudy": "PARTLYCLOUD",
 			"Scattered Clouds": "PARTLYCLOUD",
 			"Broken Clouds": "PARTLYCLOUD",
+			"Overcast": "PARTLYCLOUD",
 			"Light Rain":"LIGHTRAIN", 
 			"Shower Rain": "LIGHTRAINSUN", 
-			"Rain": "RAIN",
+			"Light Drizzle": "LIGHTRAINSUN",
+			"Heavy Drizzle": "LIGHTRAINSUN",
+			"Light Rain": "RAIN",
+			"Heavy Rain": "RAIN",
+			"Light Freezing Rain": "RAIN",
+			"Heavy Freezing Rain": "RAIN",
+			"Light Rain Showers": "RAIN",
+			"Heavy Rain Showers": "RAIN",
+			"Light Rain Mist": "RAIN",
+			"Heavy Rain Mist": "RAIN",
 			"Thunderstorm": "RAINTHUNDER",
+			"Funnel Cloud": "RAINTHUNDER",
+			"Light Thunderstorms and Rain": "RAINTHUNDER",
+			"Heavy Thunderstorms and Rain": "RAINTHUNDER",
+			"Light Thunderstorms and Snow": "RAINTHUNDER",
+			"Heavy Thunderstorms and Snow": "RAINTHUNDER",
+			"Light Thunderstorm": "RAINTHUNDER",
+			"Heavy Thunderstorm": "RAINTHUNDER",
+			"Light Thunderstorms with Hail": "RAINTHUNDER",
+			"Heavy Thunderstorms with Hail": "RAINTHUNDER",
+			"Light Thunderstorms with Small Hail": "RAINTHUNDER",
+			"Heavy Thunderstorms with Small Hail": "RAINTHUNDER",
 			"Snow": "SNOW",
-			"Mist": "FOG"
+			"Fog": "FOG",
+			"Light Fog": "FOG",
+			"Heavy Fog": "FOG",
+			"Light Fog Patches": "FOG",
+			"Heavy Fog Patches": "FOG",
+			"Shallow Fog": "FOG",
+			"Partial Fog": "FOG",
+			"Patches of Fog": "FOG",
+			"Light Mist": "FOG",
+			"Light Freezing Fog": "FOG",
+			"Heavy Freezing Fog": "FOG",
+			"Light Mist": "FOG",
+			"Heavy Mist": "FOG"
+
+
+
 		}
 			var iconweather = iconStatus[weather];
 			var icon = WeatherIcon.add('icon', WeatherIcon[iconweather], { mode:WeatherIcon.time, stroke:true, shadow:true, animated:true } );
@@ -71,7 +106,7 @@ $(document).ready(function(){
 
 
 	function getData() {
-		var url = encodeURI("https://api.wunderground.com/api/" + APPID + "/conditions/q/" + COUNTRY + "/"+ CITY + ".json");
+		var url = encodeURI("https://api.nanook.com.br" + "/conditions/q/" + COUNTRY + "/"+ CITY + ".json");
 	    $.getJSON(url, updateData);
 	}
 
