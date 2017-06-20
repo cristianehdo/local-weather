@@ -9,12 +9,6 @@ tempC = "";
 
 $(document).ready(function(){ 
 
-	$.get("https://ipinfo.io", function(response) {
-		CITY = response.city;
-		COUNTRY = response.country;
-	    $("#cityname").text(CITY);
-	}, "jsonp");
-
 
 	function updateData (json) {
 	    var weather = json.current_observation.weather;
@@ -110,15 +104,13 @@ $(document).ready(function(){
 	    $.getJSON(url, updateData);
 	}
 
-	if (navigator.geolocation) {
-		var currentPosition;	
-		navigator.geolocation.getCurrentPosition(function(position) {
-		    var currentPosition = position;
-		    LATITUDE = position.coords.longitude;
-		    LONGITUDE = position.coords.latitude;
-		    getData();
-		        
-		});
-	}
+	
+	$.get("https://ipinfo.io", function(response) {
+		CITY = response.city;
+		COUNTRY = response.country;
+	    $("#cityname").text(CITY);
+	    getData();
+	}, "jsonp");
+
 
 });
